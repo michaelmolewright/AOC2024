@@ -1,21 +1,88 @@
 import sys
 import time
 
+def checkUpdate(update, ruleset) -> bool:
+    correct = True
+    for i, val in enumerate(update):
+        myRules = ruleset[str(val)]
+        for followingVals in update[i+1:]:
+            if followingVals not in myRules:
+                correct = False
+
+    return correct
+
+def reOrder(update, ruleset) -> list[int]:
+    #bubble
+    for i in range(0, len(update)):
+        for j in range(i+1, len(update)):
+            if update[i] in ruleset[str(update[j])]:
+                temp = update[i]
+                update[i] = update[j]
+                update[j] = temp
+
+    return update
 #-------CODE-------#
 
 def loader(dataFilePath: str):
+    part1, part2 = [], []
+    top = True
     with open(dataFilePath) as file:
         for line in file:
             lineString = line.rstrip()
-            ## DO SOMETHING 
-
+            if top:
+                if lineString == '':
+                    top = False
+                else:
+                    part1.append([int(i) for i in lineString.split("|")])
+            else:
+                part2.append([int(i) for i in lineString.split(",")])
+    return part1, part2
+    
 #Function to return puzzle 1 result
 def puzzle1(dataFilePath: str):
-    return "Not Implemented"
+    rules, updates = loader(dataFilePath)
+    ruleset = {}
+    for rule in rules:
+        if str(rule[0]) in ruleset.keys():
+            ruleset[str(rule[0])].append(rule[1])
+
+        else:
+            ruleset[str(rule[0])] = [rule[1]]
+        
+        if str(rule[1]) not in ruleset.keys():
+            ruleset[str(rule[1])] = []
+    
+
+    total = 0
+    for update in updates:
+        if checkUpdate(update, ruleset):
+            total += update[len(update)//2]
+
+
+    return total
 
 #Function to Return puzzle 2 result
 def puzzle2(dataFilePath: str):
-    return "Not Implemented"
+    rules, updates = loader(dataFilePath)
+    ruleset = {}
+
+    for rule in rules:
+        if str(rule[0]) in ruleset.keys():
+            ruleset[str(rule[0])].append(rule[1])
+
+        else:
+            ruleset[str(rule[0])] = [rule[1]]
+        
+        if str(rule[1]) not in ruleset.keys():
+            ruleset[str(rule[1])] = []
+
+    total = 0
+    for update in updates:
+        if not checkUpdate(update, ruleset):
+            reOrderedUpdate = reOrder(update, ruleset)
+            total += reOrderedUpdate[len(reOrderedUpdate)//2]
+    
+    return total
 
 
 
@@ -47,21 +114,18 @@ if __name__ == "__main__":
         end = time.time()
         computeTime = end - start
 
-        print("\n\n---------------", day, "---------------")
+        print("---------------", day, "---------------")
         print("Part 1:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)
-        print("\n\n")
+
     elif args[1] == '2':
         start = time.time()
         answer = puzzle2(fullPath)
         end = time.time()
         computeTime = end - start
 
-        print("\n\n---------------", day, "---------------")
+        print("---------------", day, "---------------")
         print("Part 1:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)
-        print("\n\n")
-
-    

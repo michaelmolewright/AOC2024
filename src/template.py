@@ -47,21 +47,18 @@ if __name__ == "__main__":
         end = time.time()
         computeTime = end - start
 
-        print("\n\n---------------", day, "---------------")
+        print("---------------", day, "---------------")
         print("Part 1:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)
-        print("\n\n")
+
     elif args[1] == '2':
         start = time.time()
         answer = puzzle2(fullPath)
         end = time.time()
         computeTime = end - start
 
-        print("\n\n---------------", day, "---------------")
+        print("---------------", day, "---------------")
         print("Part 1:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)
-        print("\n\n")
-
-    
