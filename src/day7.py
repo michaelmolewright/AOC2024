@@ -1,8 +1,7 @@
 import sys
 import time
 
-def check1(answer: int,  values: list[int]):
-    #print(answer, values)
+def check1(answer: int,  values: list[int]) -> bool:
     if len(values) == 2:
         if values[0] + values[1] == answer or values[0] * values[1] == answer:
             return True
@@ -17,7 +16,7 @@ def check1(answer: int,  values: list[int]):
         else:
             return False
 
-def check2(answer: int,  values: list[int]):
+def check2(answer: int,  values: list[int]) -> bool:
     if len(values) == 2:
         if values[0] + values[1] == answer or values[0] * values[1] == answer or str(values[0]) + str(values[1]) == str(answer):
             return True
@@ -114,6 +113,6 @@ if __name__ == "__main__":
         computeTime = end - start
 
         print("---------------", day, "---------------")
-        print("Part 1:")
+        print("Part 2:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)

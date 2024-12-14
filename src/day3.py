@@ -112,7 +112,7 @@ if __name__ == "__main__":
         computeTime = end - start
 
         print("\n\n---------------", day, "---------------")
-        print("Part 1:")
+        print("Part 2:")
         print("      Answer: ", answer)
         print("compute Time: ", computeTime)
         print("\n\n")
